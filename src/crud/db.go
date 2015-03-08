@@ -3,11 +3,15 @@ package main
 import (
 	"github.com/jinzhu/gorm"
 	"log"
+	"strings"
 )
 
 func setupDB() gorm.DB {
 
-	db, err := gorm.Open("mysql", "root:password@/items_database?charset=utf8&parseTime=True")
+	//var username=YOURUSERNAME
+	//var pasword=YOURPASSWORD
+
+	db, err := gorm.Open("mysql", strings.Join([]string{username, ":", password, "@/items_database?charset=utf8&parseTime=True"}, ""))
 
 	if err != nil {
 		log.Fatal(err)
