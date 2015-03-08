@@ -13,7 +13,7 @@ I made this in an ubuntu VM but you should be able to apply to this basically an
 ### Installation
 
 You need to set your GOPATH to the root folder of this repo and also
-add the bin folder to your path. If you've used go before and/or you've setup your GOPATH, you can skip everything after the first time.
+add the bin folder to your path. If you've used go before and/or you've setup your GOPATH, you can skip everything after the first step.
 
 ```sh
 $ git clone https://github.com/SyedWasiHaider/GoCRUD.git
