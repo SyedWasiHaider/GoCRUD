@@ -1,13 +1,13 @@
 package main
 
 import (
-"github.com/jinzhu/gorm"
-"log"
+	"github.com/jinzhu/gorm"
+	"log"
 )
 
-func setupDB()  (gorm.DB) {
+func setupDB() gorm.DB {
 
-	db, err := gorm.Open("mysql", "root:password@/items_database?charset=utf8&parseTime=True")
+	db, err := gorm.Open("mysql", "username:password@/items_database?charset=utf8&parseTime=True")
 
 	if err != nil {
 		log.Fatal(err)
@@ -24,31 +24,30 @@ func setupDB()  (gorm.DB) {
 	//This will give a warning if the table already exists.
 	db.CreateTable(&ProductListing{})
 
-	return db;
+	return db
 
 }
 
-
 /**************DB OPERATIONS***************/
 
-	func addProductListing(listing * ProductListing){
+func addProductListing(listing *ProductListing) {
 
 	//To ensure the ID is set by the DB and not the user.
-		listing.ID = 0; 
-		db.NewRecord(&listing)
-		db.Create(&listing)
-	}
+	listing.ID = 0
+	db.NewRecord(&listing)
+	db.Create(&listing)
+}
 
-	func getProductListingById(id int) (*ProductListing){
+func getProductListingById(id int) *ProductListing {
 	//Find all items matching the name
-		var listing ProductListing;
-		db.Where("id = ?", id).Find(&listing)
-		return &listing;
-	}
+	var listing ProductListing
+	db.Where("id = ?", id).Find(&listing)
+	return &listing
+}
 
-	func getProductListingByName(name string) ([] ProductListing){
+func getProductListingByName(name string) []ProductListing {
 	//Find all items matching the name
-		var listings [] ProductListing;
-		db.Where("name = ?", name).Find(&listings)
-		return listings;
-	}
+	var listings []ProductListing
+	db.Where("name = ?", name).Find(&listings)
+	return listings
+}
