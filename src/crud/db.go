@@ -7,7 +7,7 @@ import (
 
 func setupDB() gorm.DB {
 
-	db, err := gorm.Open("mysql", "username:password@/items_database?charset=utf8&parseTime=True")
+	db, err := gorm.Open("mysql", "root:password@/items_database?charset=utf8&parseTime=True")
 
 	if err != nil {
 		log.Fatal(err)
@@ -50,4 +50,8 @@ func getProductListingByName(name string) []ProductListing {
 	var listings []ProductListing
 	db.Where("name = ?", name).Find(&listings)
 	return listings
+}
+
+func deleteProductListingById(id int) {
+	db.Delete(ProductListing{ID: id})
 }

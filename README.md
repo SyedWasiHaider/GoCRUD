@@ -46,6 +46,5 @@ localhost:1234. You can make some requests using postman or your REST client of 
 
 ### TODO
 
- - Add Delete Method
  - Add oauth 
  - Write Tests
