@@ -29,14 +29,14 @@ $ export PATH=$PATH:$GOPATH/bin
 Next make sure you have all the packages this project depends on.
 
 ```sh
+cd crud
 go get github.com/go-sql-driver/mysql
 go get -u github.com/jinzhu/gorm
 go get github.com/gorilla/mux
 ```
 Run the program:
 ```sh
-$ cd crud
-$ go run *.go
+go run *.go
 ```
 
 ### Usage
