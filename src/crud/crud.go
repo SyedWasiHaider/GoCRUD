@@ -88,7 +88,7 @@ func getListing(w http.ResponseWriter, r *http.Request) {
 
 	//Some golang magic here:
 	/*
-		Coverts the array of listings to a json array
+		Converts the array of listings to a json array
 		and returns it.
 	*/
 	var buffer bytes.Buffer
@@ -128,7 +128,7 @@ func getListingById(w http.ResponseWriter, r *http.Request) {
 
 	//Some golang magic here:
 	/*
-		Coverts the array of listings to a json array
+		Converts the array of listings to a json array
 		and returns it.
 	*/
 	if listing != nil && listing.ID > 0 {
