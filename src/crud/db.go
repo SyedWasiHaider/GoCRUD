@@ -27,12 +27,21 @@ func setupDB() gorm.DB {
 
 	//This will give a warning if the table already exists.
 	db.CreateTable(&ProductListing{})
+	db.CreateTable(&User{})
 
 	return db
 
 }
 
 /**************DB OPERATIONS***************/
+
+func addUser(user *User) {
+
+	//To ensure the ID is set by the DB and not the user.
+	user.ID = 0
+	db.NewRecord(&user)
+	db.Create(&user)
+}
 
 func addProductListing(listing *ProductListing) {
 

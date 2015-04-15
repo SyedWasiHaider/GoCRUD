@@ -19,6 +19,17 @@ type ProductListing struct {
 	Price       float64
 }
 
+type User struct {
+	ID       int `sql:"not null;unique;auto_increment;primary key"`
+	Name     string
+	Password []byte //This is actually a hash.
+}
+
+type _user struct {
+	Name     string
+	Password string
+}
+
 var db gorm.DB
 
 func main() {
@@ -30,7 +41,30 @@ func main() {
 /**************CRUD OPERATIONS*************/
 //Some repetitive code here that can be refactored...
 
-func create(w http.ResponseWriter, r *http.Request) {
+func createUser(w http.ResponseWriter, r *http.Request) {
+	decoder := json.NewDecoder(r.Body)
+	log.Println(r.Body)
+	var user _user
+	err := decoder.Decode(&user)
+	if err != nil {
+		http.Error(w, "Could not decode JSON", 400)
+	} else {
+
+		hash, err := getDigest([]byte(user.Password))
+		if err != nil {
+			fmt.Println(err)
+			http.Error(w, "Bad password", 400)
+		} else {
+			userActual := User{Password: hash, Name: user.Name}
+			log.Println(userActual.Name)
+			addUser(&userActual)
+			fmt.Fprintf(w, "All Good")
+		}
+
+	}
+}
+
+func createListing(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
 	log.Println(r.Body)
 	var t ProductListing
@@ -47,7 +81,7 @@ func create(w http.ResponseWriter, r *http.Request) {
 	log.Println(t.Name)
 }
 
-func update(w http.ResponseWriter, r *http.Request) {
+func updateListing(w http.ResponseWriter, r *http.Request) {
 	//Gets the id parameter
 	params := mux.Vars(r)
 	idStr := params["id"]
